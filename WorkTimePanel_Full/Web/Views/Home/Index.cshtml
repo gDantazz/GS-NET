@@ -1,0 +1,56 @@
+@{
+    ViewData["Title"] = "Dashboard";
+}
+<div class="row">
+  <div class="col-md-12">
+    <h2>Dashboard - WorkTimePanel</h2>
+    <p>Este painel consome a API Java configurada em appsettings.json (JavaApi:BaseUrl).</p>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-6">
+    <h4>Pausas (Últimas)</h4>
+    <table class="table table-striped">
+      <thead><tr><th>ID</th><th>Início</th><th>Fim</th><th>Duração (s)</th></tr></thead>
+      <tbody id="pausasBody"></tbody>
+    </table>
+  </div>
+  <div class="col-md-6">
+    <h4>Gráficos</h4>
+    <canvas id="chartByDay" height="200"></canvas>
+    <canvas id="chartWeekly" height="200" class="mt-4"></canvas>
+  </div>
+</div>
+
+@section Scripts {
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+  const pauses = JSON.parse('@Html.Raw(ViewData["PausasJson"] ?? "[]")');
+  const byDay = JSON.parse('@Html.Raw(ViewData["ByDayJson"] ?? "[]")');
+  const weekly = JSON.parse('@Html.Raw(ViewData["WeeklyJson"] ?? "[]")');
+
+  const tbody = document.getElementById('pausasBody');
+  pauses.forEach(p => {
+    const tr = document.createElement('tr');
+    tr.innerHTML = `<td>${p.id}</td><td>${new Date(p.inicio).toLocaleString()}</td><td>${p.fim ? new Date(p.fim).toLocaleString() : '-'}</td><td>${p.duracao ?? '-'}</td>`;
+    tbody.appendChild(tr);
+  });
+
+  function renderChart(canvasId, labels, values, label) {
+    const ctx = document.getElementById(canvasId).getContext('2d');
+    new Chart(ctx, {
+      type: 'bar',
+      data: { labels, datasets: [{ label, data: values }] },
+      options: { responsive: true, scales: { y: { beginAtZero: true } } }
+    });
+  }
+
+  const labelsDay = byDay.map(x => x.day ?? x.label ?? '');
+  const valuesDay = byDay.map(x => x.totalSeconds ?? x.value ?? 0);
+  renderChart('chartByDay', labelsDay, valuesDay, 'Total segundos por dia');
+
+  const labelsWeek = weekly.map(x => x.label ?? '');
+  const valuesWeek = weekly.map(x => x.value ?? 0);
+  renderChart('chartWeekly', labelsWeek, valuesWeek, 'Total segundos na semana');
+</script>
+}

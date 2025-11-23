@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="pt-br">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>WorkTimePanel - @ViewData["Title"]</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" />
+</head>
+<body>
+  <div class="container py-4">
+    <header class="mb-4 d-flex justify-content-between align-items-center">
+      <div><h1>WorkTimePanel</h1><small class="text-muted">Painel .NET - Consome API Java</small></div>
+      <div>
+        <a class="btn btn-outline-secondary" href="/Account/Login">Login</a>
+        <a class="btn btn-outline-danger" href="/Account/Logout">Logout</a>
+      </div>
+    </header>
+    <main>
+      @RenderBody()
+    </main>
+    <footer class="mt-4 text-muted">WorkTimeAssist - Entrega Nivel 10</footer>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  @RenderSection("Scripts", required: false)
+</body>
+</html>

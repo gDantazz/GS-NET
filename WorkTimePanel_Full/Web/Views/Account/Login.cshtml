@@ -1,0 +1,20 @@
+@model WorkTimePanelFull.Application.DTOs.UserLoginDto
+@{
+    ViewData["Title"] = "Login";
+}
+<div class="row justify-content-center">
+  <div class="col-md-4">
+    <h2>Login</h2>
+    <form method="post">
+      <div class="mb-3">
+        <label class="form-label">Usuário</label>
+        <input asp-for="Username" class="form-control" />
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Senha</label>
+        <input asp-for="Password" type="password" class="form-control" />
+      </div>
+      <button class="btn btn-primary">Entrar</button>
+    </form>
+  </div>
+</div>
