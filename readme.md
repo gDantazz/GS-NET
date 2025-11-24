@@ -186,8 +186,6 @@ EF Core + Migrations + Seed	✅
 Web API (30 pts)	⚠ (CRUD completo, sem /search ainda)
 Documentação (README) (10 pts)	✅
 
-Pontuação estimada: 85–95 pts, dependendo dos critérios do professor.
-
 👨‍💻 Integrantes
 Nome	RM
 Gustavo Dantas	RM560685
